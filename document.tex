@@ -1,0 +1,175 @@
+\documentclass[a4paper]{article} %Formato de plantilla a utilizar (Un A4 convencional)
+
+
+
+% _____             _____ _____   _____          ___   _ 
+%|  __ \     /\    / ____|  __ \ / _ \ \        / / \ | |
+%| |__) |   /  \  | (___ | |__) | | | \ \  /\  / /|  \| |
+%|  _  /   / /\ \  \___ \|  ___/| | | |\ \/  \/ / | . ` |
+%| | \ \  / ____ \ ____) | |    | |_| | \  /\  /  | |\  |
+%|_|  \_\/_/    \_\_____/|_|     \___/   \/  \/   |_| \_|
+
+% Template hecha para la documentación de máquinas en la plataforma Hack the Box (adaptable a cualquier necesidad). Para comenzar a redactar directamente puedes dirigirte directamente a la parte comentada como "Contenido del documento". También deberás cambiar en la sección comentada como "Variables" el nombre de la máquina en cuestión y las imágenes dentro de la carpeta "Images" según desees. 
+
+% Autor: rasp0wn
+% Página Web: https://rasp0wn.es
+% GitHub:	  https://github.com/rasp0wn
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%     PAQUETES    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}	
+\usepackage[margin=3cm, top=3cm, includefoot]{geometry}
+
+\usepackage[hidelinks]{hyperref}	% Para la gestión de hipervínculos
+\usepackage{graphicx} 		    	% Para la inserción de imágenes
+\usepackage[table,xcdraw]{xcolor}   % Para la detección de colores
+\usepackage[most]{tcolorbox}		% Para la inserción de cuadros de colores
+\usepackage{tabularx}				% Para la tabla inicial
+\usepackage{fancyhdr}				% Para definir el estilo de la página
+\usepackage{parskip}				% Para quitar las tabulaciones iniciales en los párrafos
+\usepackage{listings}				% Para la inserción de código
+
+%%%%%%%%%%%%%%%%%%%%%%     VARIABLES    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{verdeHTB}{HTML}{99CA3C}			% Color verde HTB
+\newcommand{\machineName}{Buff}					% Nombre de la máquina
+\newcommand{\logoPortada}{Images/portada.png}	% Logo de HTB (banner horizontal)
+\newcommand{\machineImage}{Images/maquina.png}	% Imágen de la máquina en concreto
+
+
+% Configuración del fancyhdr para poner las páginas más bonicas
+\setlength{\headheight}{55pt}
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\includegraphics[width=5cm]{\logoPortada}}
+\rhead{\includegraphics[height=1.5cm]{\machineImage}}
+\renewcommand{\headrulewidth}{3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{verdeHTB}\leaders\hrule height \headrulewidth\hfill}}
+
+
+%---------------- Config para la tabla de la portada ---------------------
+
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+
+\tcbset{tab1/.style={fonttitle=\bfseries\large,fontupper=\normalsize\sffamily,
+		colback=white!10!white,
+		colframe=green!75!black,
+		colbacktitle=green!40!white,
+		coltitle=black,
+		center title,
+		freelance,
+		frame code={
+			\foreach \n in {north east,north west,south east,south west}
+			{\path [fill=green!75!black] (interior.\n) circle (2mm); };},}}
+
+
+%---------------- Config para la inserción de código ---------------------
+\renewcommand{\lstlistingname}{Código}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+	backgroundcolor=\color{backcolour},   
+	commentstyle=\color{codegreen},
+	keywordstyle=\color{magenta},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\ttfamily\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2
+}
+
+\lstset{style=mystyle}
+
+%%%%%%%%%%%%%%%%%%%%%%     INICIO DEL DOCUMENTO    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+	\cfoot{\thepage}
+	
+	%%%%%%%%%%%%%%%%%%%%%% Portada %%%%%%%%%%%%%%%%%%%%%%
+	\begin{titlepage}
+		
+		\centering
+		\includegraphics[width=0.75\textwidth, keepaspectratio]{\logoPortada} \\
+		\vfill
+		
+		{\Huge\bfseries{Write-Up}} \vskip 0.2cm
+		{\Huge\bfseries\textcolor{verdeHTB}{\machineName}} \\
+		\vfill
+		
+		\includegraphics[width=\textwidth, height=8cm, keepaspectratio]{\machineImage} \vskip 1cm
+		
+
+	
+		\vfill
+		\begin{tcolorbox}[tab1,tabularx={Y||Y}]	
+			{\Huge\bfseries{Dificultad}} & {\Huge\bfseries{IP}} \\ \\
+			{\Large{Fácil}}  & {\Large{10.10.10.198}} \\
+			\\
+		\end{tcolorbox}
+
+		
+	\end{titlepage}
+	% ----------------- fin de portada ---------------------
+	
+	
+	
+	
+	% -------------------- Índice --------------------------
+	\clearpage
+	\tableofcontents	
+	\clearpage
+	
+	
+	%%%%%%%%%%%%%%%%%%%%%% Contenido del documento %%%%%%%%%%%%%%%%%%%%%%
+	\section{Enumeración}
+	Tiramos el nmap como sabemos hacerlo. Saldrán muchas cosillas que la mitad no van a servir para nada pero bueno, nosotros lo intentamos. 
+	
+	\section{Obtención de Información}
+	Aquí cual linces vemos por donde van los tiros. 
+	
+	\subsection{Credenciales}
+	Ponemos una imagen de ejemplo:
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=\textwidth]{\logoPortada}
+		\caption{Imagen de ejemplo}
+	\end{figure}
+	
+	\section{Explotación}
+	Aquí hacemos PUM y nos metemos en la máquina como PRO Hackers que somos. También insertamos algo de código de ejemplo: 
+	
+	\begin{lstlisting}[language=Bash, caption=Código de ejemplo]
+
+		#!/bin/bash
+		ls
+		echo "Hola"
+	\end{lstlisting}
+	
+	
+	
+	\section{Escalada de privilegios}
+	Y finalmente nos hacemos root como tiene que ser. 
+	
+	
+	
+	
+
+\end{document}
