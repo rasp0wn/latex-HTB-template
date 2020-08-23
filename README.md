@@ -13,7 +13,6 @@ Para editarlo hay que modificar el archivo **document.tex** con el editor que pr
 ![preview de la portada](Images/portada_preview.PNG)
 ![preview del índice](Images/index_preview.PNG)
 ![preview del contenido](Images/content_preview.PNG)
-![preview del asd](Images/test.png)
 
 
 
